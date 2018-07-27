@@ -1,0 +1,38 @@
+	/**
+	 * removeDuplictaes removes duplicate values in arrays and copies it to new
+	 * array with smaller size
+	 * 
+	 * @param array
+	 * @return
+	 */
+	public String[][] removeDuplictaes(String[][] array) {
+		int row = array.length;
+
+		for (int i = 0; i < row; i++) {
+			if ((i + 1 < array.length) && array[i + 1][0].equals(array[i][0])) {
+				Arrays.fill(array[i], "Duplicate");
+				this.duplicateRows++;
+			}
+		}
+
+		String[][] signals = new String[row - this.duplicateRows][array[0].length];
+		int signalsRow = 0, signalsColumn = 0;
+
+		for (int i = 0; i < array.length; i++) {
+			boolean check = false;
+			for (int j = 0; j < array[0].length; j++) {
+				if (!(array[i][j].contains("Duplicate"))) {
+					signals[signalsRow][signalsColumn] = array[i][j];
+					signalsColumn++;
+					check = true;
+				} else {
+					check = false;
+				}
+			}
+			signalsColumn = 0;
+			if (check) {
+				signalsRow++;
+			}
+		}
+		return signals;
+	}
